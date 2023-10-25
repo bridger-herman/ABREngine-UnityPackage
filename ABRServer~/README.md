@@ -2,6 +2,57 @@
 
 This folder contains the code for the ABR server and the ABR Compose Design Interface.
 
+
+## IN PROGRESS TODOS
+
+
+### General UI/Server related Todos
+
+- [ ] Support changing background color in browser editor
+- [ ] Support changing lighting in browser editor
+- [ ] Support creating/editing Data Impression Groups in browser editor
+
+### Library Server Rewrite
+
+Major additions in progress (adding library and applets here...)
+
+The goal is to significantly simplify the approach to managing libraries for
+ABR. Right now there's the cloud library at
+<https://sculptingvis.tacc.utexas.edu>. Artists can also have their own
+individual libraries via the [Sculpting Vis
+Library](https://hub.docker.com/r/bridgerherman/sculpting-vis-library) docker
+image (this is a clone of the code running on
+<https://sculptingvis.tacc.utexas.edu>).
+
+This code started out as an experiment under a VIS deadline, and is
+(unsurprisingly) a bit more complicated than it needs to be. So, the aim of this
+progress is to simplify the library management and applet code, and add it to
+the main ABR compose interface so *all ABR components are located in one place*.
+
+The major TODOs are:
+
+- [x] Analyze current server VisAsset management strategy in this repo. the
+following are already implemented:
+    - [x] Save from local VisAsset
+    - [x] Download VisAsset from other library
+    - [x] Remove VisAsset
+    - [ ] In-Memory VisAsset Cache (currently views.py, move this to library manager)
+- [ ] Create VisAsset artifact.json schema in ABRSchemas~
+    - [x] Port basic fields from current `artifact.json`
+    - [ ] Design workflow from library to compose (likely don't want *everything* that's in library to be in the palette... by default, put it in the local library, but only show certain ones?)
+- [ ] Create new Django sub-apps named /library, /applets
+- [ ] Write Django infrastructure:
+    - [ ] Create/Read/Delete VisAssets
+    - [ ] Create/Read/Delete Gradients
+- [ ] Migrate applets to this repo
+    - [ ] Color Loom
+    - [ ] Infinite Line
+    - [ ] Texture Mapper
+        - [ ] Change over code from WASM to vanilla JavaScript for readability?
+    - [ ] Glyph Aligner
+        - [ ] Clarify directions
+        - [ ] Use `bpy` Blender python module as a dependency of ABR server
+
 ## Installation
 
 To get started with development, first make sure you have the `pipenv` package.
